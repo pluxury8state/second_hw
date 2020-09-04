@@ -16,7 +16,6 @@ class ConverterFromStringInDatetime:
         return date1
 
     def to_url(self, value: datetime):
-        value = str(int(value))
         return datetime.strftime(value, self.format)
 
 

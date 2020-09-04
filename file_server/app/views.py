@@ -47,7 +47,7 @@ def file_list(request, date=None):
 
 def file_content(request, name):
     text = []
-    with open(f'files/{name}', 'r', encoding='utf-8') as file:
+    with open(f'files/{name}.txt', 'r', encoding='utf-8') as file:
         for string in file:
             text.append(string.strip('\n'))
 
