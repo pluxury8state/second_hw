@@ -15,8 +15,13 @@ files_list = []
 for i in result:
     conf_dict = {}
     conf_dict['name'] = i[0]
-    conf_dict['ctime'] = str(datetime.datetime.fromtimestamp(i[1]))
-    conf_dict['mtime'] = str(datetime.datetime.fromtimestamp(i[2]))
+    time_cortege_ctime = datetime.datetime(time.gmtime(int(i[1])).tm_year, time.gmtime(int(i[1])).tm_mon, time.gmtime(int(i[1])).tm_mday)
+    time_cortege_mtime = datetime.datetime(time.gmtime(int(i[2])).tm_year, time.gmtime(int(i[2])).tm_mon, time.gmtime(int(i[2])).tm_mday)
+
+
+
+    conf_dict['ctime'] = time_cortege_ctime
+    conf_dict['mtime'] = time_cortege_mtime
     files_list.append(conf_dict)
 
 

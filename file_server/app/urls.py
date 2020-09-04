@@ -10,11 +10,14 @@ class ConverterFromStringInDatetime:
     format = '%Y-%m-%d'
 
     def to_python(self, date: str) -> datetime:
-        return datetime.strptime(date, self.format)
+
+        date1 = datetime.strptime(date, self.format)
+
+        return date1
 
     def to_url(self, value: datetime):
-
-        return datetime.strptime(value, self.format)
+        value = str(int(value))
+        return datetime.strftime(value, self.format)
 
 
 register_converter(ConverterFromStringInDatetime, 'Dt')
@@ -22,7 +25,7 @@ register_converter(ConverterFromStringInDatetime, 'Dt')
 urlpatterns = [
     # Определите схему урлов с привязкой к отображениям .views.file_list и .views.file_content
     path('', file_list, name='file_list'),
-    path('<Dt:date>', file_list, name='file_list'),  # задайте необязательный параметр "date"
-                                      # для детальной информации смотрите HTML-шаблоны в директории templates
+    path('<Dt:date>/', file_list, name='file_list'),
+
     path('file/<name>', file_content, name='file_content'),
 ]
