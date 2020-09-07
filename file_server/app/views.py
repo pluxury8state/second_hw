@@ -5,11 +5,16 @@ from os import listdir, stat
 from os.path import abspath
 import time
 
+new_items = []
+
 items = listdir('files')
+
 m_time = [j.st_mtime for j in [stat('files/' + i) for i in items]]
 c_time = [j.st_ctime for j in [stat('files/' + i) for i in items]]
 
-result = (list(zip(items, m_time, c_time)))
+for i in items:
+    new_items.append(i.replace('.txt', ''))
+result = (list(zip(new_items, m_time, c_time)))
 
 files_list = []
 for i in result:
@@ -29,20 +34,30 @@ def file_list(request, date=None):
     template_name = 'index.html'
 
 
-    if date == None:
+    if date != None:
+
+        new_files_list = []
+        for f in files_list:
+            if (date == f['ctime']) or (date == f['mtime']):
+                new_files_list.append(f)
+
+
+
         context = {
-            'files': files_list
+            'files': new_files_list
             ,
-            'date': date  # Этот параметр необязательный
+            'date': date,  # Этот параметр необязательный,
+
         }
         return render(request, template_name, context)
-    else:
-        context = {
-            'files': files_list
-            ,
-            'date': date
-        }
-        return render(request, template_name, context)
+
+    context = {
+
+        'files': files_list
+        ,
+        'date': False
+    }
+    return render(request, template_name, context)
 
 
 def file_content(request, name):

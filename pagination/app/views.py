@@ -45,17 +45,19 @@ def bus_stations(request):        #ЧТО НУЖНОУЧИТЫВАТЬ ПРИ П
         current_page = 1
     elif current_page > total_pages:
         current_page = total_pages
+    elif current_page > total_pages:
+        current_page = total_pages
     articles = new_file[(current_page - 1) * items_per_page:current_page * items_per_page]
     prev_page, next_page = None, None
     if current_page > 1:
         prev_page = current_page - 1
-    if current_page * items_per_page < len(new_file):
+    if current_page < total_pages:
         next_page = current_page + 1
 
     return render(request, 'index.html', context={
         'bus_stations': articles,
         'current_page': current_page,
-        'prev_page_url': None,
+        'prev_page_url': prev_page,
         'next_page_url': next_page,
     })
 
